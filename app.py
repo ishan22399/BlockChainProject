@@ -695,6 +695,14 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
+@app.route('/exam_schedules')
+def exam_schedules():
+    if 'role' not in session or session['role'] != 'admin':
+        flash('Unauthorized access!', 'danger')
+        return redirect(url_for('login'))
+        
+    exams = Exam.query.all()
+    return render_template('exam_schedules.html', exams=exams)
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)
