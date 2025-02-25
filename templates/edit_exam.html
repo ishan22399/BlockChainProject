@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}Edit Exam{% endblock %}
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="card border-0 shadow-lg rounded-lg overflow-hidden mx-auto exam-edit-card">
+        <div class="card-header bg-gradient-primary p-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-white m-0"><i class="bi bi-pencil-square me-2"></i>Edit Exam</h2>
+                <span class="badge bg-light text-primary fs-6 px-3 py-2">{{ exam.name }}</span>
+            </div>
+        </div>
+        <div class="card-body p-4 p-md-5">
+            <form action="{{ url_for('edit_exam', exam_id=exam.id) }}" method="POST">
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <label for="name" class="form-label fw-bold"><i class="bi bi-tag me-1"></i>Exam Name</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ exam.name }}" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-group">
+                            <label for="date" class="form-label fw-bold"><i class="bi bi-calendar-event me-1"></i>Exam Date</label>
+                            <input type="date" class="form-control form-control-lg" id="date" name="date" value="{{ exam.date }}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="description" class="form-label fw-bold"><i class="bi bi-card-text me-1"></i>Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" required>{{ exam.description }}</textarea>
+                </div>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="age_min" class="form-label fw-bold"><i class="bi bi-person me-1"></i>Minimum Age</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-arrow-down"></i></span>
+                                <input type="number" class="form-control" id="age_min" name="age_min" value="{{ exam.age_min }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="age_max" class="form-label fw-bold"><i class="bi bi-person me-1"></i>Maximum Age</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-arrow-up"></i></span>
+                                <input type="number" class="form-control" id="age_max" name="age_max" value="{{ exam.age_max }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="education_level" class="form-label fw-bold"><i class="bi bi-mortarboard me-1"></i>Education Level</label>
+                            <select class="form-select" id="education_level" name="education_level" required>
+                                <option value="High School" {% if exam.education_level == 'High School' %}selected{% endif %}>High School</option>
+                                <option value="Undergraduate" {% if exam.education_level == 'Undergraduate' %}selected{% endif %}>Undergraduate</option>
+                                <option value="Graduate" {% if exam.education_level == 'Graduate' %}selected{% endif %}>Graduate</option>
+                                <option value="Postgraduate" {% if exam.education_level == 'Postgraduate' %}selected{% endif %}>Postgraduate</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                            <label for="time_limit" class="form-label fw-bold"><i class="bi bi-hourglass-split me-1"></i>Time Limit (min)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-clock"></i></span>
+                                <input type="number" class="form-control" id="time_limit" name="time_limit" value="{{ exam.time_limit }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="eligible_colleges" class="form-label fw-bold"><i class="bi bi-building me-1"></i>Eligible Colleges</label>
+                    <div class="form-text text-muted mb-2">Enter college names separated by commas</div>
+                    <textarea class="form-control" id="eligible_colleges" name="eligible_colleges" rows="3">{{ exam.eligible_colleges }}</textarea>
+                </div>
+                
+                <div class="d-flex flex-column flex-md-row justify-content-between mt-5 gap-3">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-lg px-4"><i class="bi bi-arrow-left me-2"></i>Back</a>
+                    <button type="submit" class="btn btn-primary btn-lg px-5"><i class="bi bi-save me-2"></i>Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .exam-edit-card {
+        max-width: 95%;
+        width: 1400px;
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(to right, #4e73df, #224abe);
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .form-control, .form-select, .input-group-text {
+        border: 1px solid #d1d3e2;
+        padding: 0.75rem 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .form-select {
+        height: auto;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    textarea.form-control {
+        padding: 0.75rem;
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fc;
+    }
+    
+    .form-label {
+        color: #5a5c69;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        white-space: normal;
+    }
+    
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2e59d9;
+        border-color: #2e59d9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(78, 115, 223, 0.25);
+    }
+    
+    .btn-outline-secondary {
+        transition: all 0.2s ease;
+    }
+    
+    .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn {
+        padding: 0.6rem 1.25rem;
+    }
+    
+    .card {
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-header {
+        background-size: 200% auto;
+        transition: background-position 0.5s ease;
+    }
+    
+    .card-header:hover {
+        background-position: right center;
+    }
+    
+    .badge {
+        border-radius: 30px;
+        font-weight: 500;
+    }
+    
+    /* Fix form element visibility issues */
+    .form-group {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    
+    .input-group-lg>.form-control, 
+    .input-group-lg>.input-group-text {
+        height: auto;
+    }
+    
+    /* Added spacing between form rows */
+    .row.g-4 {
+        --bs-gutter-y: 1rem;
+    }
+    
+    /* Improve form element visibility */
+    .input-group {
+        width: 100%;
+    }
+    
+    /* Ensure all inputs take full available width */
+    .form-control, .form-select {
+        width: 100%;
+    }
+    
+    @media (max-width: 992px) {
+        .card-body {
+            padding: 2rem !important;
+        }
+        
+        .form-control, .form-select, .input-group-text {
+            padding: 0.6rem 0.75rem;
+        }
+        
+        /* Make labels fully visible on mobile */
+        .form-label {
+            display: block !important;
+        }
+        
+        /* Make rows stack properly on mobile */
+        .row.g-4 > .col-md-6 {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    @media (min-width: 1400px) {
+        .container-fluid {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<h2>Student Dashboard</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exam in exams %}
+        <tr>
+            <td>{{ exam.name }}</td>
+            <td>{{ exam_statuses[exam.id] }}</td>
+            <td>
+                {% if exam.id in registered_exam_ids %}
+                    {% if exam_statuses[exam.id] == 'available' %}
+                        <a href="{{ url_for('take_exam', exam_id=exam.id) }}" class="btn btn-primary btn-sm">Take Exam</a>
+                    {% elif exam_statuses[exam.id] == 'submitted' %}
+                        {% if exam.results_published %}
+                            <a href="{{ url_for('view_results', exam_id=exam.id) }}" class="btn btn-info btn-sm">View Results</a>
+                        {% else %}
+                            <span class="text-muted">Results Not Published</span>
+                        {% endif %}
+                    {% else %}
+                        <span class="text-muted">{{ exam_statuses[exam.id] | capitalize }}</span>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('register_exam', exam_id=exam.id) }}" class="btn btn-secondary btn-sm">Register</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
