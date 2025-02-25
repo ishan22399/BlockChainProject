@@ -1,40 +1,174 @@
 {% extends "base.html" %}
 {% block title %}Add Exam{% endblock %}
 {% block content %}
-<h2>Add Exam</h2>
-<form method="POST" action="{{ url_for('add_exam') }}">
-    <div class="mb-3">
-        <label for="name" class="form-label">Exam Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+<div class="exam-container">
+    <div class="exam-header">
+        <h2>Add Exam</h2>
+        <div class="exam-header-line"></div>
     </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="age_min" class="form-label">Minimum Age</label>
-        <input type="number" class="form-control" id="age_min" name="age_min" required>
-    </div>
-    <div class="mb-3">
-        <label for="age_max" class="form-label">Maximum Age</label>
-        <input type="number" class="form-control" id="age_max" name="age_max" required>
-    </div>
-    <div class="mb-3">
-        <label for="education_level" class="form-label">Education Level</label>
-        <input type="text" class="form-control" id="education_level" name="education_level" required>
-    </div>
-    <div class="mb-3">
-        <label for="eligible_colleges" class="form-label">Eligible Colleges (comma-separated)</label>
-        <textarea class="form-control" id="eligible_colleges" name="eligible_colleges"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="date" class="form-label">Exam Date</label>
-        <input type="date" class="form-control" id="date" name="date" required>
-    </div>
-    <div class="mb-3">
-        <label for="time_limit" class="form-label">Time Limit (minutes)</label>
-        <input type="number" class="form-control" id="time_limit" name="time_limit" min="1" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Exam</button>
-</form>
+    
+    <form method="POST" action="{{ url_for('add_exam') }}" class="exam-form">
+        <div class="mb-3 form-group">
+            <label for="name" class="form-label">Exam Name</label>
+            <input type="text" class="form-control custom-input" id="name" name="name" required>
+        </div>
+        
+        <div class="mb-3 form-group">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control custom-textarea" id="description" name="description"></textarea>
+        </div>
+        
+        <div class="form-row">
+            <div class="mb-3 form-group col-md-6">
+                <label for="age_min" class="form-label">Minimum Age</label>
+                <input type="number" class="form-control custom-input" id="age_min" name="age_min" required>
+            </div>
+            
+            <div class="mb-3 form-group col-md-6">
+                <label for="age_max" class="form-label">Maximum Age</label>
+                <input type="number" class="form-control custom-input" id="age_max" name="age_max" required>
+            </div>
+        </div>
+        
+        <div class="mb-3 form-group">
+            <label for="education_level" class="form-label">Education Level</label>
+            <input type="text" class="form-control custom-input" id="education_level" name="education_level" required>
+        </div>
+        
+        <div class="mb-3 form-group">
+            <label for="eligible_colleges" class="form-label">Eligible Colleges (comma-separated)</label>
+            <textarea class="form-control custom-textarea" id="eligible_colleges" name="eligible_colleges"></textarea>
+        </div>
+        
+        <div class="form-row">
+            <div class="mb-3 form-group col-md-6">
+                <label for="date" class="form-label">Exam Date</label>
+                <input type="date" class="form-control custom-input" id="date" name="date" required>
+            </div>
+            
+            <div class="mb-3 form-group col-md-6">
+                <label for="time_limit" class="form-label">Time Limit (minutes)</label>
+                <input type="number" class="form-control custom-input" id="time_limit" name="time_limit" min="1" required>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button type="submit" class="btn custom-button">Add Exam</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .exam-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .exam-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .exam-header h2 {
+        color: #2c3e50;
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .exam-header-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, #3498db, #9b59b6);
+        margin: 0 auto 1rem auto;
+        border-radius: 2px;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    
+    .form-row > .col-md-6 {
+        padding-right: 15px;
+        padding-left: 15px;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .form-label {
+        color: #34495e;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .custom-input, .custom-textarea {
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+    
+    .custom-input:focus, .custom-textarea:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        outline: none;
+    }
+    
+    .custom-textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    
+    .button-container {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    .custom-button {
+        background: linear-gradient(to right, #3498db, #9b59b6);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 40px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+    
+    .custom-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+    }
+    
+    .custom-button:active {
+        transform: translateY(1px);
+    }
+    
+    @media (max-width: 768px) {
+        .exam-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        
+        .form-row > .col-md-6 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+</style>
 {% endblock %}

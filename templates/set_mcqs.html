@@ -1,48 +1,205 @@
 {% extends "base.html" %}
 {% block title %}Set MCQs{% endblock %}
 {% block content %}
-<h2>Set MCQs for {{ exam.name }}</h2>
-<form method="POST" action="{{ url_for('set_mcqs', exam_id=exam.id) }}">
-    <div class="mb-3">
-        <label for="question" class="form-label">Question</label>
-        <textarea class="form-control" id="question" name="question" required></textarea>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg border-0 rounded-lg mb-4">
+                <div class="card-header bg-gradient-primary">
+                    <h3 class="text-white m-0 py-2">
+                        <i class="bi bi-question-circle me-2"></i>Set MCQs for {{ exam.name }}
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('set_mcqs', exam_id=exam.id) }}">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="question" name="question" style="height: 100px;" required></textarea>
+                                    <label for="question"><i class="bi bi-chat-square-text me-1"></i>Question</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="option1" name="option1" required>
+                                    <label for="option1"><i class="bi bi-1-circle me-1"></i>Option 1</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="option2" name="option2" required>
+                                    <label for="option2"><i class="bi bi-2-circle me-1"></i>Option 2</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="option3" name="option3" required>
+                                    <label for="option3"><i class="bi bi-3-circle me-1"></i>Option 3</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="option4" name="option4" required>
+                                    <label for="option4"><i class="bi bi-4-circle me-1"></i>Option 4</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="correct_answer" name="correct_answer" required>
+                                        <option value="" selected disabled>Select the correct answer</option>
+                                        <option value="option1">Option 1</option>
+                                        <option value="option2">Option 2</option>
+                                        <option value="option3">Option 3</option>
+                                        <option value="option4">Option 4</option>
+                                    </select>
+                                    <label for="correct_answer"><i class="bi bi-check-circle me-1"></i>Correct Answer</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-end">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-plus-circle me-1"></i>Add Question
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-gradient-secondary">
+                    <h4 class="text-white m-0 py-2">
+                        <i class="bi bi-list-ol me-2"></i>Existing Questions ({{ mcqs|length }})
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3" width="5%">#</th>
+                                    <th width="70%">Question</th>
+                                    <th width="25%" class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mcq in mcqs %}
+                                <tr>
+                                    <td class="ps-3">{{ loop.index }}</td>
+                                    <td>{{ mcq.question }}</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm btn-info me-1" title="View Details"
+                                                data-bs-toggle="modal" data-bs-target="#questionModal{{ mcq.id }}">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <a href="#" class="btn btn-sm btn-danger" title="Delete Question" 
+                                           onclick="return confirm('Are you sure you want to delete this question?');">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center py-4">
+                                        <i class="bi bi-info-circle me-1"></i>No questions added yet
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="option1" class="form-label">Option 1</label>
-        <input type="text" class="form-control" id="option1" name="option1" required>
+</div>
+
+{% for mcq in mcqs %}
+<!-- Question Detail Modal -->
+<div class="modal fade" id="questionModal{{ mcq.id }}" tabindex="-1" aria-labelledby="questionModalLabel{{ mcq.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary text-white">
+                <h5 class="modal-title" id="questionModalLabel{{ mcq.id }}">Question Details</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h6>Question:</h6>
+                    <p>{{ mcq.question }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <div class="option-box p-2 rounded">
+                            <span class="badge bg-secondary me-1">1</span>
+                            {{ mcq.option1 }}
+                            {% if mcq.correct_answer == 'option1' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="option-box p-2 rounded">
+                            <span class="badge bg-secondary me-1">2</span>
+                            {{ mcq.option2 }}
+                            {% if mcq.correct_answer == 'option2' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="option-box p-2 rounded">
+                            <span class="badge bg-secondary me-1">3</span>
+                            {{ mcq.option3 }}
+                            {% if mcq.correct_answer == 'option3' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="option-box p-2 rounded">
+                            <span class="badge bg-secondary me-1">4</span>
+                            {{ mcq.option4 }}
+                            {% if mcq.correct_answer == 'option4' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="option2" class="form-label">Option 2</label>
-        <input type="text" class="form-control" id="option2" name="option2" required>
-    </div>
-    <div class="mb-3">
-        <label for="option3" class="form-label">Option 3</label>
-        <input type="text" class="form-control" id="option3" name="option3" required>
-    </div>
-    <div class="mb-3">
-        <label for="option4" class="form-label">Option 4</label>
-        <input type="text" class="form-control" id="option4" name="option4" required>
-    </div>
-    <div class="mb-3">
-        <label for="correct_answer" class="form-label">Correct Answer</label>
-        <input type="text" class="form-control" id="correct_answer" name="correct_answer" required>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Question</button>
-</form>
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Question</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for mcq in mcqs %}
-        <tr>
-            <td>{{ mcq.id }}</td>
-            <td>{{ mcq.question }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+</div>
+{% endfor %}
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(to right, #4e73df, #224abe);
+    }
+    
+    .bg-gradient-secondary {
+        background: linear-gradient(to right, #5a5c69, #373840);
+    }
+    
+    .form-floating > .form-control {
+        height: calc(3.5rem + 2px);
+    }
+    
+    .form-floating > label {
+        padding: 1rem 0.75rem;
+    }
+    
+    .form-floating > textarea.form-control {
+        height: auto;
+    }
+    
+    .option-box {
+        background-color: #f8f9fa;
+        border: 1px solid #e3e6f0;
+    }
+    
+    .table > :not(caption) > * > * {
+        padding: 0.75rem 0.5rem;
+    }
+</style>
 {% endblock %}
