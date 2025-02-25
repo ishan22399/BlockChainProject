@@ -1,13 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Register{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content %}
-<div class="register-container">
-    <div class="register-card">
-        <div class="register-header">
-            <h2>Create an Account</h2>
-            <p>Join our Exam Portal community</p>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue to Exam Portal</p>
         </div>
-        <form action="{{ url_for('register') }}" method="POST" class="register-form">
+        <form action="{{ url_for('login') }}" method="POST" class="login-form">
             <div class="form-group">
                 <label for="username">
                     <i class="bi bi-person-fill"></i> Username
@@ -18,7 +18,7 @@
                     id="username" 
                     name="username" 
                     required 
-                    placeholder="Choose a unique username"
+                    placeholder="Enter your username"
                 >
             </div>
             <div class="form-group">
@@ -32,7 +32,7 @@
                         id="password" 
                         name="password" 
                         required 
-                        placeholder="Create a strong password"
+                        placeholder="Enter your password"
                     >
                     <span class="password-toggle">
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
@@ -40,20 +40,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="role">
-                    <i class="bi bi-person-badge-fill"></i> Role
-                </label>
-                <select class="form-control" id="role" name="role" required>
-                    <option value="">Select your role</option>
-                    <option value="student">Student</option>
-                    <option value="admin">Admin</option>
-                </select>
+                <a href="#" class="forgot-password">Forgot Password?</a>
             </div>
-            <button type="submit" class="btn-register">Sign Up</button>
+            <button type="submit" class="btn-login">Login</button>
             
-            <div class="login-link">
-                Already have an account? 
-                <a href="{{ url_for('login') }}">Login</a>
+            <div class="signup-link">
+                Don't have an account? 
+                <a href="{{ url_for('register') }}">Sign Up</a>
             </div>
         </form>
     </div>
