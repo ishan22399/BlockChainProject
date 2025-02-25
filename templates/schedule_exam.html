@@ -1,63 +1,101 @@
 {% extends "base.html" %}
 {% block title %}Schedule Exam{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-gradient-primary">
-                    <h3 class="text-white m-0 py-2">
-                        <i class="bi bi-calendar-event me-2"></i>Schedule Exam: {{ exam.name }}
-                    </h3>
-                </div>
-                <div class="card-body p-4">
-                    <p class="text-muted mb-4">
-                        <i class="bi bi-info-circle me-2"></i>Please set the date and time for this exam session
-                    </p>
+<div class="schedule-exam-container">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card card-custom shadow-xl border-0 overflow-hidden">
+                    <!-- Card header with animated gradient -->
+                    <div class="card-header-animated">
+                        <div class="header-content">
+                            <div class="calendar-icon">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                            <h3 class="text-white m-0">
+                                Schedule Exam: {{ exam.name }}
+                            </h3>
+                        </div>
+                    </div>
                     
-                    <form method="POST">
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="exam_date" name="exam_date" 
-                                           value="{{ exam.date if exam.date else '' }}" required>
-                                    <label for="exam_date">
-                                        <i class="bi bi-calendar3 me-1"></i>Exam Date
-                                    </label>
-                                </div>
+                    <!-- Card body with 3D effect -->
+                    <div class="card-body p-5 position-relative bg-light">
+                        <div class="form-container">
+                            <div class="info-banner mb-4">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <span>Please set the date and time for this exam session</span>
                             </div>
                             
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="time" class="form-control" id="start_time" name="start_time" required>
-                                    <label for="start_time">
-                                        <i class="bi bi-clock me-1"></i>Start Time
-                                    </label>
+                            <form method="POST" class="needs-validation" novalidate>
+                                <div class="row g-4">
+                                    <!-- Date selection with enhanced input -->
+                                    <div class="col-md-12">
+                                        <div class="form-group custom-floating-form">
+                                            <label for="exam_date" class="floating-label">
+                                                <i class="bi bi-calendar-week-fill me-1"></i>Exam Date
+                                            </label>
+                                            <input type="date" class="form-control custom-input" id="exam_date" name="exam_date" 
+                                                value="{{ exam.date if exam.date else '' }}" required>
+                                            <div class="help-text">Select the date when the exam will be conducted</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Time inputs with visual connection -->
+                                    <div class="col-md-6">
+                                        <div class="form-group custom-floating-form">
+                                            <label for="start_time" class="floating-label">
+                                                <i class="bi bi-clock-fill me-1"></i>Start Time
+                                            </label>
+                                            <input type="time" class="form-control custom-input" id="start_time" name="start_time" required>
+                                            <div class="help-text">When students can begin the exam</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group custom-floating-form">
+                                            <label for="end_time" class="floating-label">
+                                                <i class="bi bi-clock-history me-1"></i>End Time
+                                            </label>
+                                            <input type="time" class="form-control custom-input" id="end_time" name="end_time" required>
+                                            <div class="help-text">When the exam access will close</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 time-connection">
+                                        <div class="time-line"></div>
+                                        <div class="time-duration">
+                                            <i class="bi bi-stopwatch"></i>
+                                            <span id="duration-text">Duration will be calculated</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                
+                                <!-- Action buttons with animations -->
+                                <div class="mt-5 pt-3 d-flex justify-content-between align-items-center action-buttons">
+                                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-back">
+                                        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                                    </a>
+                                    <button type="submit" class="btn btn-schedule">
+                                        <span class="btn-text">Update Schedule</span>
+                                        <i class="bi bi-check-circle ms-2"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced footer with icon -->
+                    <div class="card-footer">
+                        <div class="note-container">
+                            <div class="note-icon">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
                             </div>
-                            
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="time" class="form-control" id="end_time" name="end_time" required>
-                                    <label for="end_time">
-                                        <i class="bi bi-clock-history me-1"></i>End Time
-                                    </label>
-                                </div>
+                            <div class="note-text">
+                                Students will only be able to access the exam during the scheduled time frame.
+                                Make sure to communicate these details to all participants.
                             </div>
                         </div>
-                        
-                        <div class="mt-4 pt-2 d-flex justify-content-between">
-                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
-                            </a>
-                            <button type="submit" class="btn btn-primary px-4">
-                                <i class="bi bi-check-circle me-1"></i>Update Schedule
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer bg-light text-muted py-3">
-                    <small><i class="bi bi-exclamation-triangle me-1"></i>Note: Students will only be able to access the exam during the scheduled time.</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,39 +103,410 @@
 </div>
 
 <style>
-    .bg-gradient-primary {
-        background: linear-gradient(to right, #4e73df, #224abe);
+    /* Base styling */
+    .schedule-exam-container {
+        --primary: #4361ee;
+        --primary-light: #4895ef;
+        --primary-dark: #3f37c9;
+        --secondary: #f72585;
+        --text: #212529;
+        --text-light: #6c757d;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --success: #4cc9f0;
+        --gradient-1: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);
+        --gradient-2: linear-gradient(45deg, var(--primary-dark) 0%, var(--secondary) 100%);
+        --shadow-color: rgba(67, 97, 238, 0.3);
+        font-family: 'Inter', sans-serif;
     }
     
-    .form-floating > .form-control {
-        height: calc(3.5rem + 2px);
+    /* Card styling with modern design */
+    .card-custom {
+        border-radius: 16px;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     }
     
-    .form-floating > label {
-        padding: 1rem 0.75rem;
+    .shadow-xl {
+        box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05), 
+                    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
     }
     
-    .card {
+    /* Animated header */
+    .card-header-animated {
+        background: var(--gradient-1);
+        position: relative;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+    
+    .card-header-animated::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+        animation: animateBackground 30s linear infinite;
+    }
+    
+    @keyframes animateBackground {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 500px 500px;
+        }
+    }
+    
+    .header-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        width: 100%;
+    }
+    
+    /* Calendar icon with animation */
+    .calendar-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        margin-right: 1.5rem;
+        box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite;
+    }
+    
+    .calendar-icon i {
+        font-size: 2rem;
+        color: white;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+        50% {
+            transform: scale(1.05);
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.2);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+        }
+    }
+    
+    /* Form styling */
+    .form-container {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .info-banner {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: rgba(67, 97, 238, 0.1);
+        border-left: 4px solid var(--primary);
+        border-radius: 4px;
+        color: var(--primary-dark);
+        font-weight: 500;
+    }
+    
+    .custom-floating-form {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    
+    .floating-label {
+        position: absolute;
+        top: -10px;
+        left: 12px;
+        padding: 0 0.5rem;
+        background: white;
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 1;
+    }
+    
+    .custom-input {
+        height: 60px;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        font-size: 1.05rem;
         transition: all 0.3s ease;
     }
     
-    input[type="date"], input[type="time"] {
-        cursor: pointer;
+    .custom-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.2);
     }
     
-    .btn {
+    .help-text {
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--text-light);
+    }
+    
+    /* Time connection styling */
+    .time-connection {
+        position: relative;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .time-line {
+        position: absolute;
+        top: 0;
+        left: 26%;
+        right: 26%;
+        height: 2px;
+        background: var(--gradient-1);
+        z-index: 1;
+    }
+    
+    .time-duration {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        background: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 2px solid #e9ecef;
+        color: var(--primary-dark);
+        font-weight: 600;
+        z-index: 2;
+    }
+    
+    .time-duration i {
+        margin-right: 0.5rem;
+        color: var(--primary);
+        animation: spin 5s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Button styling */
+    .action-buttons {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e9ecef;
+    }
+    
+    .btn-back {
+        padding: 0.75rem 1.75rem;
+        border-radius: 50px;
         font-weight: 500;
-        padding: 0.5rem 1.25rem;
+        color: var(--text);
+        background: white;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
     }
     
-    .btn-primary {
-        background-color: #4e73df;
-        border-color: #4e73df;
+    .btn-back:hover {
+        background: #f8f9fa;
+        transform: translateX(-5px);
     }
     
-    .btn-primary:hover {
-        background-color: #2e59d9;
-        border-color: #2653d4;
+    .btn-schedule {
+        position: relative;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        color: white;
+        background: var(--gradient-2);
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 4px 15px var(--shadow-color);
+        transition: all 0.3s ease;
+    }
+    
+    .btn-schedule:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: width 0.5s ease;
+    }
+    
+    .btn-schedule:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px var(--shadow-color);
+    }
+    
+    .btn-schedule:hover:before {
+        width: 100%;
+    }
+    
+    /* Footer styling */
+    .card-footer {
+        background: #f8f9fa;
+        border-top: none;
+        padding: 1.25rem;
+    }
+    
+    .note-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .note-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 40px;
+        height: 40px;
+        background: rgba(255, 193, 7, 0.2);
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    
+    .note-icon i {
+        color: #ffc107;
+        font-size: 1.25rem;
+    }
+    
+    .note-text {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .action-buttons {
+            flex-direction: column-reverse;
+        }
+        
+        .btn-back, .btn-schedule {
+            width: 100%;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .calendar-icon {
+            width: 48px;
+            height: 48px;
+        }
+        
+        .calendar-icon i {
+            font-size: 1.5rem;
+        }
+        
+        .header-content h3 {
+            font-size: 1.25rem;
+        }
+        
+        .card-header-animated {
+            height: 100px;
+        }
+        
+        .time-line {
+            left: 15%;
+            right: 15%;
+        }
     }
 </style>
+
+<script>
+    // Calculate and display time duration between start and end time
+    document.addEventListener('DOMContentLoaded', function() {
+        const startTime = document.getElementById('start_time');
+        const endTime = document.getElementById('end_time');
+        const durationText = document.getElementById('duration-text');
+        
+        function updateDuration() {
+            if(startTime.value && endTime.value) {
+                const start = new Date(`2000-01-01T${startTime.value}`);
+                const end = new Date(`2000-01-01T${endTime.value}`);
+                
+                if(end < start) {
+                    // End time is on the next day
+                    end.setDate(end.getDate() + 1);
+                }
+                
+                const diff = end - start;
+                const hours = Math.floor(diff / 3600000);
+                const minutes = Math.floor((diff % 3600000) / 60000);
+                
+                let durationString = '';
+                if(hours > 0) {
+                    durationString += `${hours} hour${hours !== 1 ? 's' : ''}`;
+                }
+                if(minutes > 0) {
+                    durationString += durationString ? ` ${minutes} minute${minutes !== 1 ? 's' : ''}` : `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+                }
+                
+                if(durationString) {
+                    durationText.textContent = `Duration: ${durationString}`;
+                } else {
+                    durationText.textContent = 'Please select valid times';
+                }
+            } else {
+                durationText.textContent = 'Duration will be calculated';
+            }
+        }
+        
+        startTime.addEventListener('change', updateDuration);
+        endTime.addEventListener('change', updateDuration);
+        
+        // Subtle card tilt effect when hovering
+        const card = document.querySelector('.card-custom');
+        card.addEventListener('mousemove', function(e) {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+            
+            // Calculate mouse position relative to card center
+            const mouseX = e.clientX - cardCenterX;
+            const mouseY = e.clientY - cardCenterY;
+            
+            // Calculate rotation (max 5 degrees)
+            const rotateX = mouseY * -0.01;
+            const rotateY = mouseX * 0.01;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+        
+        // Form validation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            this.classList.add('was-validated');
+        });
+    });
+</script>
 {% endblock %}

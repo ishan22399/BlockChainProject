@@ -1,112 +1,129 @@
 {% extends "base.html" %}
 {% block title %}Set MCQs{% endblock %}
+
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
+<div class="container-fluid px-4 py-5 mt-4">
+    <div class="row gx-5">
         <div class="col-lg-12">
-            <div class="card shadow-lg border-0 rounded-lg mb-4">
-                <div class="card-header bg-gradient-primary">
-                    <h3 class="text-white m-0 py-2">
-                        <i class="bi bi-question-circle me-2"></i>Set MCQs for {{ exam.name }}
+            <!-- Add Question Card -->
+            <div class="card shadow-custom border-0 rounded-xl mb-5 animate-on-scroll fade-in-up">
+                <div class="card-header bg-gradient-primary position-relative overflow-hidden">
+                    <div class="header-blur"></div>
+                    <h3 class="text-white m-0 py-3 position-relative">
+                        <i class="bi bi-question-diamond-fill me-2 pulse-icon"></i>Set MCQs for {{ exam.name }}
                     </h3>
                 </div>
-                <div class="card-body p-4">
-                    <form method="POST" action="{{ url_for('set_mcqs', exam_id=exam.id) }}">
-                        <div class="row g-3">
+                <div class="card-body p-4 p-lg-5">
+                    <form method="POST" action="{{ url_for('set_mcqs', exam_id=exam.id) }}" class="needs-validation" novalidate>
+                        <div class="row g-4">
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="question" name="question" style="height: 100px;" required></textarea>
-                                    <label for="question"><i class="bi bi-chat-square-text me-1"></i>Question</label>
+                                <div class="form-floating mb-4 custom-floating">
+                                    <textarea class="form-control custom-input" id="question" name="question" style="height: 120px; font-size: 1.05rem;" required></textarea>
+                                    <label for="question" class="floating-label"><i class="bi bi-chat-square-text-fill me-2"></i>Question</label>
+                                    <div class="invalid-feedback">Please provide a question.</div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="option1" name="option1" required>
-                                    <label for="option1"><i class="bi bi-1-circle me-1"></i>Option 1</label>
+                                <div class="form-floating mb-4 custom-floating">
+                                    <input type="text" class="form-control custom-input option-input option-1" id="option1" name="option1" required>
+                                    <label for="option1" class="floating-label"><i class="bi bi-1-circle-fill me-2"></i>Option 1</label>
+                                    <div class="invalid-feedback">Please provide option 1.</div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="option2" name="option2" required>
-                                    <label for="option2"><i class="bi bi-2-circle me-1"></i>Option 2</label>
+                                <div class="form-floating mb-4 custom-floating">
+                                    <input type="text" class="form-control custom-input option-input option-2" id="option2" name="option2" required>
+                                    <label for="option2" class="floating-label"><i class="bi bi-2-circle-fill me-2"></i>Option 2</label>
+                                    <div class="invalid-feedback">Please provide option 2.</div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="option3" name="option3" required>
-                                    <label for="option3"><i class="bi bi-3-circle me-1"></i>Option 3</label>
+                                <div class="form-floating mb-4 custom-floating">
+                                    <input type="text" class="form-control custom-input option-input option-3" id="option3" name="option3" required>
+                                    <label for="option3" class="floating-label"><i class="bi bi-3-circle-fill me-2"></i>Option 3</label>
+                                    <div class="invalid-feedback">Please provide option 3.</div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="option4" name="option4" required>
-                                    <label for="option4"><i class="bi bi-4-circle me-1"></i>Option 4</label>
+                                <div class="form-floating mb-4 custom-floating">
+                                    <input type="text" class="form-control custom-input option-input option-4" id="option4" name="option4" required>
+                                    <label for="option4" class="floating-label"><i class="bi bi-4-circle-fill me-2"></i>Option 4</label>
+                                    <div class="invalid-feedback">Please provide option 4.</div>
                                 </div>
                             </div>
                             
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" id="correct_answer" name="correct_answer" required>
+                                <div class="form-floating mb-3 custom-floating">
+                                    <select class="form-select custom-input" id="correct_answer" name="correct_answer" required>
                                         <option value="" selected disabled>Select the correct answer</option>
                                         <option value="option1">Option 1</option>
                                         <option value="option2">Option 2</option>
                                         <option value="option3">Option 3</option>
                                         <option value="option4">Option 4</option>
                                     </select>
-                                    <label for="correct_answer"><i class="bi bi-check-circle me-1"></i>Correct Answer</label>
+                                    <label for="correct_answer" class="floating-label"><i class="bi bi-check-circle-fill me-2"></i>Correct Answer</label>
+                                    <div class="invalid-feedback">Please select the correct answer.</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-4 text-end">
-                            <button type="submit" class="btn btn-primary px-4">
-                                <i class="bi bi-plus-circle me-1"></i>Add Question
+                        <div class="mt-5 text-end">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 animated-button">
+                                <i class="bi bi-plus-circle-fill me-2"></i>Add Question
+                                <span class="hover-effect"></span>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-gradient-secondary">
-                    <h4 class="text-white m-0 py-2">
-                        <i class="bi bi-list-ol me-2"></i>Existing Questions ({{ mcqs|length }})
+            <!-- Question List Card -->
+            <div class="card shadow-custom border-0 rounded-xl animate-on-scroll fade-in-up">
+                <div class="card-header bg-gradient-secondary position-relative overflow-hidden">
+                    <div class="header-blur"></div>
+                    <h4 class="text-white m-0 py-3 position-relative">
+                        <i class="bi bi-list-ol me-2 pulse-icon"></i>Existing Questions 
+                        <span class="badge bg-light text-dark ms-2 question-count">{{ mcqs|length }}</span>
                     </h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover mb-0">
-                            <thead class="table-light">
+                        <table class="table table-hover custom-table mb-0">
+                            <thead class="table-header">
                                 <tr>
-                                    <th class="ps-3" width="5%">#</th>
-                                    <th width="70%">Question</th>
-                                    <th width="25%" class="text-center">Actions</th>
+                                    <th class="ps-4 py-3" width="5%">#</th>
+                                    <th class="py-3" width="70%">Question</th>
+                                    <th class="text-center py-3" width="25%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for mcq in mcqs %}
-                                <tr>
-                                    <td class="ps-3">{{ loop.index }}</td>
-                                    <td>{{ mcq.question }}</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-info me-1" title="View Details"
+                                <tr class="question-row">
+                                    <td class="ps-4 align-middle">{{ loop.index }}</td>
+                                    <td class="align-middle">{{ mcq.question }}</td>
+                                    <td class="text-center align-middle">
+                                        <button type="button" class="btn btn-sm btn-info me-2 action-btn view-btn" title="View Details"
                                                 data-bs-toggle="modal" data-bs-target="#questionModal{{ mcq.id }}">
-                                            <i class="bi bi-eye"></i>
+                                            <i class="bi bi-eye-fill me-1"></i><span class="btn-text">View</span>
                                         </button>
-                                        <a href="#" class="btn btn-sm btn-danger" title="Delete Question" 
+                                        <a href="#" class="btn btn-sm btn-danger action-btn delete-btn" title="Delete Question" 
                                            onclick="return confirm('Are you sure you want to delete this question?');">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="bi bi-trash-fill me-1"></i><span class="btn-text">Delete</span>
                                         </a>
                                     </td>
                                 </tr>
                                 {% else %}
                                 <tr>
-                                    <td colspan="3" class="text-center py-4">
-                                        <i class="bi bi-info-circle me-1"></i>No questions added yet
+                                    <td colspan="3" class="text-center py-5 empty-state">
+                                        <div class="empty-icon mb-3">
+                                            <i class="bi bi-clipboard-x"></i>
+                                        </div>
+                                        <p class="mb-0 text-muted">No questions added yet</p>
+                                        <small class="text-muted">Add your first question using the form above</small>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -122,50 +139,91 @@
 {% for mcq in mcqs %}
 <!-- Question Detail Modal -->
 <div class="modal fade" id="questionModal{{ mcq.id }}" tabindex="-1" aria-labelledby="questionModalLabel{{ mcq.id }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-gradient-primary text-white">
-                <h5 class="modal-title" id="questionModalLabel{{ mcq.id }}">Question Details</h5>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-custom">
+            <div class="modal-header bg-gradient-primary text-white border-0 position-relative overflow-hidden">
+                <div class="header-blur"></div>
+                <h5 class="modal-title position-relative" id="questionModalLabel{{ mcq.id }}">
+                    <i class="bi bi-card-text me-2"></i>Question Details
+                </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <h6>Question:</h6>
-                    <p>{{ mcq.question }}</p>
+            <div class="modal-body p-4">
+                <div class="question-section mb-4 p-3 rounded-lg border-start border-primary border-5">
+                    <h6 class="text-primary fw-bold mb-2"><i class="bi bi-question-diamond me-2"></i>Question:</h6>
+                    <p class="mb-0 fs-5 fw-light">{{ mcq.question }}</p>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <div class="option-box p-2 rounded">
-                            <span class="badge bg-secondary me-1">1</span>
-                            {{ mcq.option1 }}
-                            {% if mcq.correct_answer == 'option1' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                
+                <h6 class="text-secondary mb-3"><i class="bi bi-list-check me-2"></i>Answer Options:</h6>
+                <div class="row g-3">
+                    <div class="col-md-6 mb-3">
+                        <div class="option-card option-1-bg p-3 rounded-lg h-100 position-relative {% if mcq.correct_answer == 'option1' %}is-correct{% endif %}">
+                            <div class="d-flex align-items-center">
+                                <span class="option-number">1</span>
+                                <span class="ms-3">{{ mcq.option1 }}</span>
+                            </div>
+                            {% if mcq.correct_answer == 'option1' %}
+                            <div class="correct-badge">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Correct Answer</span>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <div class="option-box p-2 rounded">
-                            <span class="badge bg-secondary me-1">2</span>
-                            {{ mcq.option2 }}
-                            {% if mcq.correct_answer == 'option2' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="option-card option-2-bg p-3 rounded-lg h-100 position-relative {% if mcq.correct_answer == 'option2' %}is-correct{% endif %}">
+                            <div class="d-flex align-items-center">
+                                <span class="option-number">2</span>
+                                <span class="ms-3">{{ mcq.option2 }}</span>
+                            </div>
+                            {% if mcq.correct_answer == 'option2' %}
+                            <div class="correct-badge">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Correct Answer</span>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <div class="option-box p-2 rounded">
-                            <span class="badge bg-secondary me-1">3</span>
-                            {{ mcq.option3 }}
-                            {% if mcq.correct_answer == 'option3' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="option-card option-3-bg p-3 rounded-lg h-100 position-relative {% if mcq.correct_answer == 'option3' %}is-correct{% endif %}">
+                            <div class="d-flex align-items-center">
+                                <span class="option-number">3</span>
+                                <span class="ms-3">{{ mcq.option3 }}</span>
+                            </div>
+                            {% if mcq.correct_answer == 'option3' %}
+                            <div class="correct-badge">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Correct Answer</span>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <div class="option-box p-2 rounded">
-                            <span class="badge bg-secondary me-1">4</span>
-                            {{ mcq.option4 }}
-                            {% if mcq.correct_answer == 'option4' %}<span class="badge bg-success float-end">Correct</span>{% endif %}
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="option-card option-4-bg p-3 rounded-lg h-100 position-relative {% if mcq.correct_answer == 'option4' %}is-correct{% endif %}">
+                            <div class="d-flex align-items-center">
+                                <span class="option-number">4</span>
+                                <span class="ms-3">{{ mcq.option4 }}</span>
+                            </div>
+                            {% if mcq.correct_answer == 'option4' %}
+                            <div class="correct-badge">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span>Correct Answer</span>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="modal-footer border-0 p-3">
+                <button type="button" class="btn btn-secondary btn-lg px-4" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-2"></i>Close
+                </button>
+                <button type="button" class="btn btn-primary btn-lg px-4">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Question
+                </button>
             </div>
         </div>
     </div>
@@ -173,33 +231,382 @@
 {% endfor %}
 
 <style>
+    /* Color Palette */
+    :root {
+        --primary: #4e73df;
+        --primary-dark: #224abe;
+        --primary-light: #7c96e4;
+        --secondary: #5a5c69;
+        --secondary-dark: #373840;
+        --secondary-light: #8a8c99;
+        --success: #1cc88a;
+        --info: #36b9cc;
+        --warning: #f6c23e;
+        --danger: #e74a3b;
+        --light: #f8f9fc;
+        --dark: #3a3b45;
+        --white: #ffffff;
+        --option1: #e8f3ff;
+        --option2: #e8fff0;
+        --option3: #fff8e8;
+        --option4: #ffe8e8;
+    }
+
+    body {
+        background-color: #f8f9fc;
+        font-family: 'Nunito', 'Segoe UI', sans-serif;
+    }
+
+    /* Custom Card Styling */
+    .shadow-custom {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .rounded-xl {
+        border-radius: 0.75rem !important;
+    }
+
+    /* Header Styling */
     .bg-gradient-primary {
-        background: linear-gradient(to right, #4e73df, #224abe);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     }
     
     .bg-gradient-secondary {
-        background: linear-gradient(to right, #5a5c69, #373840);
+        background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+    }
+    
+    .header-blur {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.12), transparent 25%);
+        top: 0;
+        left: 0;
+    }
+
+    /* Form Styling */
+    .custom-input {
+        border-radius: 0.5rem;
+        border: 1px solid #e3e6f0;
+        transition: all 0.3s ease;
+        box-shadow: none;
+        padding: 1.2rem 1rem 0.5rem !important;
+    }
+    
+    .custom-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
     }
     
     .form-floating > .form-control {
-        height: calc(3.5rem + 2px);
+        height: calc(3.75rem + 2px);
+    }
+    
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        transform: scale(0.85) translateY(-0.75rem) translateX(-0.15rem);
+    }
+    
+    .form-floating > .form-select {
+        height: calc(3.75rem + 2px);
     }
     
     .form-floating > label {
-        padding: 1rem 0.75rem;
+        padding: 1.2rem 1rem;
+        color: #6e707e;
+        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
     
     .form-floating > textarea.form-control {
         height: auto;
     }
-    
-    .option-box {
-        background-color: #f8f9fa;
-        border: 1px solid #e3e6f0;
+
+    /* Option Input Styling */
+    .option-input:focus {
+        border-width: 2px;
+    }
+
+    .option-1:focus {
+        border-color: #4e73df;
+        background-color: var(--option1);
+    }
+
+    .option-2:focus {
+        border-color: #1cc88a;
+        background-color: var(--option2);
+    }
+
+    .option-3:focus {
+        border-color: #f6c23e;
+        background-color: var(--option3);
+    }
+
+    .option-4:focus {
+        border-color: #e74a3b;
+        background-color: var(--option4);
+    }
+
+    /* Button Styling */
+    .animated-button {
+        position: relative;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        letter-spacing: 0.03rem;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border: none;
     }
     
-    .table > :not(caption) > * > * {
-        padding: 0.75rem 0.5rem;
+    .animated-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(78, 115, 223, 0.3);
+    }
+    
+    .animated-button .hover-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .animated-button:hover .hover-effect {
+        transform: scale(2);
+    }
+
+    /* Table Styling */
+    .custom-table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    .table-header {
+        background-color: #f1f3f9;
+    }
+    
+    .table-header th {
+        border: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.03rem;
+        color: #555;
+    }
+    
+    .question-row {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .question-row:hover {
+        background-color: rgba(78, 115, 223, 0.05);
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .question-count {
+        font-size: 0.9rem;
+        padding: 0.35em 0.65em;
+        border-radius: 50rem;
+        vertical-align: middle;
+    }
+
+    /* Action Buttons */
+    .action-btn {
+        border-radius: 0.35rem;
+        padding: 0.4rem 0.8rem;
+        transition: all 0.2s ease;
+        border: none;
+    }
+    
+    .view-btn {
+        background-color: rgba(54, 185, 204, 0.1);
+        color: var(--info);
+    }
+    
+    .view-btn:hover {
+        background-color: var(--info);
+        color: white;
+    }
+    
+    .delete-btn {
+        background-color: rgba(231, 74, 59, 0.1);
+        color: var(--danger);
+    }
+    
+    .delete-btn:hover {
+        background-color: var(--danger);
+        color: white;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 3rem 1rem !important;
+    }
+    
+    .empty-icon {
+        font-size: 3rem;
+        color: #d1d3e2;
+    }
+
+    /* Modal Styling */
+    .question-section {
+        background-color: #f8faff;
+    }
+    
+    .option-card {
+        border-radius: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease;
+    }
+    
+    .option-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .option-1-bg {
+        background-color: var(--option1);
+    }
+    
+    .option-2-bg {
+        background-color: var(--option2);
+    }
+    
+    .option-3-bg {
+        background-color: var(--option3);
+    }
+    
+    .option-4-bg {
+        background-color: var(--option4);
+    }
+    
+    .option-number {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+    }
+    
+    .is-correct {
+        border: 2px solid var(--success);
+        box-shadow: 0 0 15px rgba(28, 200, 138, 0.15);
+    }
+    
+    .correct-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: var(--success);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50rem;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    /* Animations */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .fade-in-up {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .pulse-icon {
+        animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .btn-text {
+            display: none;
+        }
+        
+        .action-btn {
+            padding: 0.4rem;
+        }
+        
+        .action-btn i {
+            margin-right: 0 !important;
+        }
     }
 </style>
+
+<script>
+    // Form validation
+    (function() {
+        'use strict';
+        
+        // Fetch all forms with needs-validation class
+        var forms = document.querySelectorAll('.needs-validation');
+        
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        
+        // Initial check for elements in viewport
+        checkIfInView();
+        
+        // Check elements on scroll
+        window.addEventListener('scroll', checkIfInView);
+        
+        function checkIfInView() {
+            const windowHeight = window.innerHeight;
+            const windowTopPosition = window.scrollY;
+            const windowBottomPosition = windowTopPosition + windowHeight;
+            
+            animatedElements.forEach(function(element) {
+                const elementHeight = element.offsetHeight;
+                const elementTopPosition = element.offsetTop;
+                const elementBottomPosition = elementTopPosition + elementHeight;
+                
+                // Check if element is in view
+                if ((elementBottomPosition >= windowTopPosition) && 
+                    (elementTopPosition <= windowBottomPosition)) {
+                    element.classList.add('fade-in-up');
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

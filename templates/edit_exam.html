@@ -1,83 +1,96 @@
 {% extends "base.html" %}
 {% block title %}Edit Exam{% endblock %}
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-gradient-primary">
-                    <h3 class="text-white m-0 py-2"><i class="bi bi-pencil-square me-2"></i>Edit Exam - {{ exam.name }}</h3>
+        <div class="col-lg-9">
+            <div class="card shadow-xl border-0 rounded-xl">
+                <div class="card-header bg-gradient-primary position-relative py-3">
+                    <div class="header-pattern"></div>
+                    <h3 class="text-white m-0 py-2 text-center position-relative">
+                        <i class="bi bi-pencil-square me-2 pulse-icon"></i>Edit Exam - {{ exam.name }}
+                    </h3>
                 </div>
-                <div class="card-body p-4">
-                    <form action="{{ url_for('edit_exam', exam_id=exam.id) }}" method="POST">
-                        <div class="row g-3">
+                <div class="card-body p-5">
+                    <form action="{{ url_for('edit_exam', exam_id=exam.id) }}" method="POST" class="needs-validation" novalidate>
+                        <div class="row g-4">
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ exam.name }}" required>
-                                    <label for="name">Exam Name</label>
+                                <div class="form-floating mb-1">
+                                    <input type="text" class="form-control glass-input" id="name" name="name" value="{{ exam.name }}" required>
+                                    <label for="name"><i class="bi bi-file-earmark-text me-1"></i>Exam Name</label>
                                 </div>
+                                <div class="form-text">Enter a descriptive name for your exam</div>
                             </div>
                             
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" id="description" name="description" style="height: 100px;" required>{{ exam.description }}</textarea>
-                                    <label for="description">Description</label>
+                                <div class="form-floating mb-1">
+                                    <textarea class="form-control glass-input" id="description" name="description" style="height: 120px;" required>{{ exam.description }}</textarea>
+                                    <label for="description"><i class="bi bi-card-text me-1"></i>Description</label>
                                 </div>
+                                <div class="form-text">Provide details about the exam's purpose and content</div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="age_min" name="age_min" value="{{ exam.age_min }}" required>
-                                    <label for="age_min">Minimum Age</label>
+                                <div class="form-floating mb-1">
+                                    <input type="number" class="form-control glass-input" id="age_min" name="age_min" value="{{ exam.age_min }}" required>
+                                    <label for="age_min"><i class="bi bi-person-fill-down me-1"></i>Minimum Age</label>
                                 </div>
+                                <div class="form-text">Minimum age requirement</div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="age_max" name="age_max" value="{{ exam.age_max }}" required>
-                                    <label for="age_max">Maximum Age</label>
+                                <div class="form-floating mb-1">
+                                    <input type="number" class="form-control glass-input" id="age_max" name="age_max" value="{{ exam.age_max }}" required>
+                                    <label for="age_max"><i class="bi bi-person-fill-up me-1"></i>Maximum Age</label>
                                 </div>
+                                <div class="form-text">Maximum age requirement</div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-floating mb-1">
+                                    <input type="text" class="form-control glass-input" id="education_level" name="education_level" value="{{ exam.education_level }}" required>
+                                    <label for="education_level"><i class="bi bi-mortarboard me-1"></i>Education Level</label>
+                                </div>
+                                <div class="form-text">Minimum education qualification (e.g., "High School", "Bachelor's Degree")</div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-floating mb-1">
+                                    <input type="text" class="form-control glass-input" id="eligible_colleges" name="eligible_colleges" value="{{ exam.eligible_colleges }}">
+                                    <label for="eligible_colleges"><i class="bi bi-buildings me-1"></i>Eligible Colleges</label>
+                                </div>
+                                <div class="form-text">Enter colleges separated by commas, or leave empty if all colleges are eligible</div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="education_level" name="education_level" value="{{ exam.education_level }}" required>
-                                    <label for="education_level">Education Level</label>
+                                <div class="form-floating mb-1">
+                                    <input type="date" class="form-control glass-input" id="date" name="date" value="{{ exam.date }}" required>
+                                    <label for="date"><i class="bi bi-calendar-event me-1"></i>Exam Date</label>
                                 </div>
+                                <div class="form-text">When the exam will be conducted</div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="eligible_colleges" name="eligible_colleges" value="{{ exam.eligible_colleges }}">
-                                    <label for="eligible_colleges">Eligible Colleges</label>
-                                    <div class="form-text text-muted">Enter comma-separated college names</div>
+                                <div class="form-floating mb-1">
+                                    <input type="number" class="form-control glass-input" id="time_limit" name="time_limit" value="{{ exam.time_limit }}" min="1" required>
+                                    <label for="time_limit"><i class="bi bi-hourglass-split me-1"></i>Time Limit</label>
                                 </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="date" name="date" value="{{ exam.date }}" required>
-                                    <label for="date">Exam Date</label>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="time_limit" name="time_limit" value="{{ exam.time_limit }}" required>
-                                    <label for="time_limit">Time Limit (minutes)</label>
-                                </div>
+                                <div class="form-text">Duration in minutes</div>
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+                        <div class="d-flex align-items-center justify-content-between mt-5">
+                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-back">
                                 <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
                             </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save me-1"></i>Save Changes
+                            <button type="submit" class="btn btn-glow">
+                                <i class="bi bi-save-fill me-2"></i>Save Changes
                             </button>
                         </div>
                     </form>
+                </div>
+                <div class="card-footer text-center text-muted py-3">
+                    <small><i class="bi bi-info-circle-fill me-1"></i>All fields marked are required for exam update</small>
                 </div>
             </div>
         </div>
@@ -86,19 +99,186 @@
 
 <style>
     .bg-gradient-primary {
-        background: linear-gradient(to right, #4e73df, #224abe);
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.1;
+        background-image: repeating-linear-gradient(45deg, #fff 0px, #fff 5px, transparent 5px, transparent 10px);
+    }
+    
+    .shadow-xl {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 8px 15px rgba(0, 0, 0, 0.07) !important;
+    }
+    
+    .rounded-xl {
+        border-radius: 1rem !important;
+    }
+    
+    .glass-input {
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+    }
+    
+    .glass-input:focus {
+        box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+        border-color: #a78bda;
+        background-color: #fff;
     }
     
     .form-floating > .form-control {
         height: calc(3.5rem + 2px);
-    }
-    
-    .form-floating > label {
         padding: 1rem 0.75rem;
     }
     
     .form-floating > textarea.form-control {
         height: auto;
     }
+    
+    .form-floating > label {
+        padding: 1rem 0.75rem;
+        color: #555;
+    }
+    
+    .form-text {
+        color: #6c757d;
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+        margin-top: 0.25rem;
+    }
+    
+    .btn-glow {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        border: none;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-glow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+    }
+    
+    .btn-glow::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.2);
+        top: -50%;
+        left: -100px;
+        transform: rotate(20deg);
+        transition: all 0.6s ease;
+    }
+    
+    .btn-glow:hover::after {
+        left: 120%;
+    }
+    
+    .btn-outline-secondary.btn-back {
+        border: 2px solid #6c757d;
+        color: #495057;
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-secondary.btn-back:hover {
+        background-color: #f8f9fa;
+        color: #212529;
+        transform: translateX(-3px);
+    }
+    
+    .pulse-icon {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    
+    .card-footer {
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        border-top: none;
+        border-bottom-left-radius: 1rem !important;
+        border-bottom-right-radius: 1rem !important;
+    }
+    
+    /* For mobile devices */
+    @media (max-width: 767.98px) {
+        .card-body {
+            padding: 1.5rem !important;
+        }
+        
+        .btn-glow, .btn-outline-secondary.btn-back {
+            width: 100%;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .d-flex.align-items-center.justify-content-between {
+            flex-direction: column-reverse;
+        }
+        
+        .d-flex.align-items-center.justify-content-between .btn {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+    }
 </style>
+
+<script>
+    // Form validation script
+    (function() {
+        'use strict'
+        
+        const forms = document.querySelectorAll('.needs-validation')
+        
+        Array.from(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                
+                form.classList.add('was-validated')
+            }, false)
+        })
+        
+        // Add animation to form inputs on focus
+        const inputs = document.querySelectorAll('.glass-input')
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('input-focused')
+            })
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('input-focused')
+            })
+        })
+    })()
+</script>
 {% endblock %}
