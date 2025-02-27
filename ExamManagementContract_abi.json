@@ -1,0 +1,512 @@
+[
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "action",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ExamActionLogged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "resultId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "score",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ExamAttempted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "adminId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ExamCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "questionId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "QuestionAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ResultPublished",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "StudentRegistered",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "questionId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "questionHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedQuestionData",
+				"type": "string"
+			}
+		],
+		"name": "addQuestion",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			}
+		],
+		"name": "areResultsPublished",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "adminId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedExamData",
+				"type": "string"
+			}
+		],
+		"name": "createExam",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			}
+		],
+		"name": "getExamData",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "resultId",
+				"type": "uint256"
+			}
+		],
+		"name": "getExamScore",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "questionId",
+				"type": "uint256"
+			}
+		],
+		"name": "getQuestionData",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			}
+		],
+		"name": "hasAttemptedExam",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "action",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "actionData",
+				"type": "string"
+			}
+		],
+		"name": "logExamAction",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			}
+		],
+		"name": "publishExamResults",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "resultId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "score",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "totalQuestions",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedAttemptData",
+				"type": "string"
+			}
+		],
+		"name": "recordExamAttempt",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "resultId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "questionId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "answerHash",
+				"type": "string"
+			}
+		],
+		"name": "recordStudentAnswer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "studentId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedRegistrationData",
+				"type": "string"
+			}
+		],
+		"name": "registerStudentForExam",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "examId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "adminId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedExamData",
+				"type": "string"
+			}
+		],
+		"name": "updateExam",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "questionId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "questionTextHash",
+				"type": "string"
+			}
+		],
+		"name": "verifyQuestionIntegrity",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

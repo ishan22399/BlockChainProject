@@ -24,7 +24,7 @@
                             
                             <div class="col-12">
                                 <div class="form-floating mb-1">
-                                    <textarea class="form-control glass-input" id="description" name="description" style="height: 120px;" required>{{ exam.description }}</textarea>
+                                    <textarea class="form-control glass-input" id="description" name="description" style="height: 120px;" required>{{ decrypted_exam.description }}</textarea>
                                     <label for="description"><i class="bi bi-card-text me-1"></i>Description</label>
                                 </div>
                                 <div class="form-text">Provide details about the exam's purpose and content</div>
@@ -56,7 +56,7 @@
                             
                             <div class="col-12">
                                 <div class="form-floating mb-1">
-                                    <input type="text" class="form-control glass-input" id="eligible_colleges" name="eligible_colleges" value="{{ exam.eligible_colleges }}">
+                                    <input type="text" class="form-control glass-input" id="eligible_colleges" name="eligible_colleges" value="{{ decrypted_exam.eligible_colleges }}">
                                     <label for="eligible_colleges"><i class="bi bi-buildings me-1"></i>Eligible Colleges</label>
                                 </div>
                                 <div class="form-text">Enter colleges separated by commas, or leave empty if all colleges are eligible</div>

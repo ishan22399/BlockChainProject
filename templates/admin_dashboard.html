@@ -70,10 +70,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for exam in exams %}
+                        {% for exam, decrypted_exam in zipped_exams %}
                         <tr class="exam-row">
                             <td class="px-4 py-3 fw-bold text-primary">{{ exam.name }}</td>
-                            <td class="px-4 py-3">{{ exam.description }}</td>
+                            <td class="px-4 py-3">{{ decrypted_exams.description }}</td>
                             <td class="px-4 py-3"><i class="bi bi-calendar3 me-2"></i>{{ exam.date }}</td>
                             <td class="px-4 py-3">
                                 {% if exam.results_published %}
@@ -96,7 +96,7 @@
                                         <i class="bi bi-question-diamond"></i>
                                         <span class="action-label">Questions</span>
                                     </a>
-                                    <a href="#" onclick="confirmDelete('{{ url_for('delete_exam', exam_id=exam.id) }}')" class="btn btn-outline-danger action-btn-labeled" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Exam">
+                                    <a href="{{ url_for('delete_exam', exam_id=exam.id) }}" class="btn btn-outline-danger action-btn-labeled" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Exam">
                                         <i class="bi bi-trash"></i>
                                         <span class="action-label">Delete</span>
                                     </a>
